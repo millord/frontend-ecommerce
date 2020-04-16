@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Layout } from "./Layout";
-import { getProducts } from "./coreApi";
+import { getProducts } from "./apiCore";
 import { Card } from "./Card";
 import "./styles.css";
 
@@ -32,7 +32,7 @@ export const Home = () => {
   useEffect(() => {
     loadProductsBySell();
     loadProductsByArrival();
-  });
+  }, []);
 
   return (
     <div>
