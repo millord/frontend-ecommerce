@@ -11,7 +11,7 @@ import { Card } from "./Card";
 const Shop = () => {
   const [limit, setLimit] = useState(6);
   const [skip, setSkip] = useState(0);
-  const [filteredResults, setFilteredResults] = useState();
+  const [filteredResults, setFilteredResults] = useState([]);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
   const [myFilters, setMyFilters] = useState({
@@ -91,7 +91,16 @@ const Shop = () => {
             />
           </div>
         </div>
-        <div className="col-8">{JSON.stringify(filteredResults)}</div>
+        <div className="col-8">
+          <h2 className="mb-4">Products</h2>
+          <div className="row">
+            {filteredResults.map((product, i) => (
+              <div className="col-6 mb-3">
+                <Card product={product} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </Layout>
   );
