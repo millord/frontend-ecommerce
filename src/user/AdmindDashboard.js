@@ -14,7 +14,7 @@ export const AdminDashboard = () => {
               Create Category
             </Link>
           </li>
-          <Link className="nav-link" to="/product/create">
+          <Link className="nav-link" to="/product/create/">
             Create Product
           </Link>
         </ul>

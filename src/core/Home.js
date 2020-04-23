@@ -3,6 +3,7 @@ import { Layout } from "./Layout";
 import { getProducts } from "./apiCore";
 import { Card } from "./Card";
 import "./styles.css";
+import { Search } from "./Search";
 
 export const Home = () => {
   const [productsBySell, setproductsBySell] = useState([]);
@@ -41,13 +42,14 @@ export const Home = () => {
         description="Home E-commerce App"
         className="container-fluid"
       >
-        <h2 className="mb-4">New Arrivals</h2>
+        <Search />
+        <h2 className="col-4 mb-3">New Arrivals</h2>
         <div className="row">
           {productsByArrival.map((product, i) => (
             <Card key={i} product={product} />
           ))}
         </div>
-        <h2 className="mb-4">Best Sellers </h2>
+        <h2 className="col-4 mb-3">Best Sellers </h2>
         <div className="row">
           {productsBySell.map((product, i) => (
             <Card key={i} product={product} />

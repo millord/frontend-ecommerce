@@ -3,7 +3,7 @@ import { Layout } from "../core/Layout";
 import { isAuthenticated } from "../auth/index";
 import { createProduct, getCategories } from "./apiAdmin";
 
-export const AddProduct = () => {
+const AddProduct = () => {
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -15,6 +15,7 @@ export const AddProduct = () => {
     photo: "",
     loading: false,
     error: "",
+    success: false,
     createdProduct: "",
     redirectToProfile: false,
     formData: "",
@@ -32,6 +33,7 @@ export const AddProduct = () => {
     createdProduct,
     redirectToProfile,
     formData,
+    success,
   } = values;
   const { user, token } = isAuthenticated();
 
@@ -75,6 +77,7 @@ export const AddProduct = () => {
           price: "",
           quantity: "",
           loading: false,
+          success: true,
           createdProduct: data.name,
         });
       }
@@ -82,7 +85,7 @@ export const AddProduct = () => {
   };
 
   const newProductForm = () => (
-    <form className="mb-3">
+    <form onSubmit={clickSubmit} className="mb-3">
       <h4>Product Photo</h4>
       <div className="form-group">
         <label className="btn btn-outline-secondary">
@@ -161,18 +164,16 @@ export const AddProduct = () => {
           </select>
         </label>
       </div>
-      <button onClick={clickSubmit} className="btn-outline-primary">
-        Create Product
-      </button>
+      <button className="btn-outline-primary">Create Product</button>
     </form>
   );
 
   const showSuccess = () => (
     <div
       className="alert alert-info"
-      style={{ display: createdProduct ? "" : "none" }}
+      style={{ display: success ? "" : "none" }}
     >
-      <h2>{`${createdProduct}`} is created!</h2>
+      <h2>{`A new Product was created!`}</h2>
     </div>
   );
   const showLoading = () =>
@@ -209,3 +210,5 @@ export const AddProduct = () => {
     </Layout>
   );
 };
+
+export default AddProduct;

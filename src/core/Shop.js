@@ -8,7 +8,8 @@ import { RadioBox } from "./RadioBox";
 import { getFilteredProducts } from "../core/apiCore";
 import { Card } from "./Card";
 
-const Shop = () => {
+const Shop = (props) => {
+  const [size, setSize] = useState(0);
   const [limit, setLimit] = useState(6);
   const [skip, setSkip] = useState(0);
   const [filteredResults, setFilteredResults] = useState([]);
@@ -24,14 +25,39 @@ const Shop = () => {
         setError(data.error);
       } else {
         setFilteredResults(data.data);
+        setSize(data.size);
+        setSkip(0);
       }
     });
+  };
+  const loadMore = () => {
+    let toSkip = skip + limit;
+    getFilteredProducts(toSkip, limit, myFilters.filters).then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setFilteredResults([...filteredResults, ...data.data]);
+        setSize(data.size);
+        setSkip(0);
+      }
+    });
+  };
+
+  const loadMoreButton = () => {
+    return (
+      size > 0 &&
+      size >= limit && (
+        <button onClick={loadMore} className="btn btn-warning mb-5">
+          Load More Products
+        </button>
+      )
+    );
   };
 
   useEffect(() => {
     init();
     loadFilteredResults();
-  }, []);
+  }, [props]);
 
   const init = () => {
     getCategories().then((data) => {
@@ -68,8 +94,8 @@ const Shop = () => {
 
   return (
     <Layout
-      title="Home"
-      description="Home E-commerce App"
+      title="Shop"
+      description="Buy your New Favorite E-book"
       className="container-fluid"
     >
       <div className="row">
@@ -99,6 +125,8 @@ const Shop = () => {
                 <Card product={product} />
               </div>
             ))}
+            <hr />
+            {loadMoreButton()}
           </div>
         </div>
       </div>
