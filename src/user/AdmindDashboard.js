@@ -17,6 +17,9 @@ export const AdminDashboard = () => {
           <Link className="nav-link" to="/product/create/">
             Create Product
           </Link>
+          <Link className="nav-link" to="/admin/orders/">
+            View Orders
+          </Link>
         </ul>
       </div>
     );
